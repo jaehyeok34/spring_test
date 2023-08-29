@@ -3,27 +3,21 @@ package hello.hello_spring.service;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import hello.hello_spring.domain.Member;
-import hello.hello_spring.repository.MemoryMemberRepository;
+import hello.hello_spring.repository.MemberRepository;
 
+@SpringBootTest
+@Transactional
 public class MemberServiceTest {
-    MemoryMemberRepository memberRepository;
-    MemberService memberService;
-
-    @BeforeEach
-    void beforeEach() {
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository);
-    }
-
-    @AfterEach
-    void afterEach() {
-        memberRepository.claerStore();
-    }
+    
+    
+    @Autowired MemberRepository memberRepository;
+    @Autowired MemberService memberService;
 
     @Test
     void join() {
