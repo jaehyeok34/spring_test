@@ -1,6 +1,7 @@
 package hello.hello_spring.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ public class MemberServiceTest {
     void join() {
         // given
         Member member = new Member();
-        member.setName("spring1");
+        member.setName("spring3");
 
         // when
         Long saveId = memberService.join(member);
@@ -41,7 +42,14 @@ public class MemberServiceTest {
         Member member2 = new Member();
         member2.setName("spring1");
 
-        memberService.join(member1);
+        try {
+            memberService.join(member1);
+            memberService.join(member2);
+            fail();
+        } catch(Exception e) {
+            System.out.println("중복 생성 막음");
+        }
+
         assertThrows(IllegalStateException.class, () -> memberService.join(member2));
     }
 
